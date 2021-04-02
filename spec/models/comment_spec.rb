@@ -1,22 +1,27 @@
 require 'rails_helper'
 
-RSpec.describe Like, type: :model do
+RSpec.describe Comment, type: :model do
     let(:user1) { User.create(name: 'user1', email: 'user1@example.com', password: 'user123') }
     let(:post1) { Post.create(user_id: user1.id, content: 'This is my first post') }
-  let(:like) { Like.create(user_id: user1.id, post_id: post1.id) }
+  let(:comment) { Comment.create(user_id: user1.id, post_id: post1.id, content: 'This is the first comment') }
 
   it 'is valid with valid attributes' do
-    expect(like).to be_valid
+    expect(comment).to be_valid
+  end
+
+  it 'is not valid without a content' do
+    comment.content = nil
+    expect(comment).to_not be_valid
   end
 
   it 'is not valid without a user_id' do
-    like.user_id = nil
-    expect(like).to_not be_valid
+    comment.user_id = nil
+    expect(comment).to_not be_valid
   end
 
   it 'is not valid without a post_id' do
-    like.post_id = nil
-    expect(like).to_not be_valid
+    comment.post_id = nil
+    expect(comment).to_not be_valid
   end
 
   describe 'Associations' do
