@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-    let(:user1) { User.create(name: 'user1', email: 'user1@example.com', password: 'user123') }
-    let(:post1) { Post.create(user_id: user1.id, content: 'This is my first post') }
+  let(:user1) { User.create(name: 'user1', email: 'user1@example.com', password: 'user123') }
+  let(:post1) { Post.create(user_id: user1.id, content: 'This is my first post') }
   let(:comment) { Comment.create(user_id: user1.id, post_id: post1.id, content: 'This is the first comment') }
 
   it 'is valid with valid attributes' do

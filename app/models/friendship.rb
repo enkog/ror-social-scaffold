@@ -1,16 +1,16 @@
 class Friendship < ApplicationRecord
   belongs_to :user
-  belongs_to :friend, class_name: 'User',  foreign_key: 'friend_id'
+  belongs_to :friend, class_name: 'User', foreign_key: 'friend_id'
 
   # Pending friend request
   def self.request(user, friend)
-    unless user == friend or Friendship.exists?(user, friend)
     transaction do
-      create(user: user, friend: friend, confirmed: 'false')
+      return create(user: user, friend: friend, confirmed: 'false') if user == friend or Friendship.exists?(user,
+                                                                                                            friend)
     end
   end
 
-  # Accept a friend request.
+  # Accepted friend request.
   def self.accept(user, friend)
     transaction do
       accepted_at = Time.now
@@ -19,20 +19,19 @@ class Friendship < ApplicationRecord
     end
   end
 
-  # Delete a friendship
+  # Delete friendship
   def self.breakup(user, friend)
     transaction do
-    destroy(find_by_user_id_and_friend_id(user, friend))
-    destroy(find_by_user_id_and_friend_id(friend, user))
+      destroy(find_by_user_id_and_friend_id(user, friend))
+      destroy(find_by_user_id_and_friend_id(friend, user))
     end
   end
 
-  private
   def self.accept_request(user, friend, accepted_at)
     request = find_by_user_id_and_friend_id(user, friend)
     request.confirmed = 'true'
     request.accepted_at = accepted_at
-    
+
     request.save!
   end
 end

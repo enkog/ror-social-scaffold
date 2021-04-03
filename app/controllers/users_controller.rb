@@ -10,6 +10,11 @@ class UsersController < ApplicationController
     @posts = @user.posts.ordered_by_most_recent
   end
 
+  def create_friendship
+    current_user.friendships.create(user_id: current_user.id, friend_id: @user.id, confirmed: false)
+    redirect_to request.referrer, notice: 'Friend request sent'
+  end
+
   def accept
     if @user.requested_friends.include?(@friend)
       Friendship.accept(@user, @friend)
@@ -17,27 +22,27 @@ class UsersController < ApplicationController
     else
       flash[:notice] = "No friendship request from #{@friend.name}."
     end
-      redirect_to root_path
+    redirect_to request.referrer
   end
-        
+
   def decline
     if @user.requested_friends.include?(@friend)
-      Friendship.breakup(@user, @friend)      
+      Friendship.breakup(@user, @friend)
       flash[:notice] = "Friendship with #{@friend.name} declined"
     else
-      flash[:notice] = "No friendship request from #{@friend.name}."        
+      flash[:notice] = "No friendship request from #{@friend.name}."
     end
-      redirect_to root_path      
+    redirect_to request.referrer
   end
-        
-  def cancel       
+
+  def cancel
     if @user.pending_friends.include?(@friend)
       Friendship.breakup(@user, @friend)
-      flash[:notice] = "Friendship request canceled."
+      flash[:notice] = 'Friendship request canceled.'
     else
       flash[:notice] = "No request for friendship with #{@friend.name}"
     end
-      redirect_to root_path
+    redirect_to request.referrer
   end
 
   def delete
@@ -47,10 +52,11 @@ class UsersController < ApplicationController
     else
       flash[:notice] = "You aren't friends with #{@friend.name}"
     end
-      redirect_to root_path
+    redirect_to request.referrer
   end
 
   private
+
   def setup_friends
     @user = User.find(session[:user_id])
     @friend = User.find_by_name(params[:id])
