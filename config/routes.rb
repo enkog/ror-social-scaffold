@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show] do 
     member do 
       get 'send_request'
-      patch 'update_friend'
-      delete 'destroy_friend'
+      patch 'accept_request'
+      delete 'decline_request'
     end
   end
   resources :posts, only: [:index, :create] do

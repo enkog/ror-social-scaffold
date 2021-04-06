@@ -7,4 +7,24 @@ module FriendshipHelper
                        "#{friend.name} is your friend."
                      end
   end
+
+  def cancel
+    if @user.pending_friends.include?(@friend)
+      Friendship.breakup(@user, @friend)
+      flash[:notice] = 'Friendship request canceled.'
+    else
+      flash[:notice] = "No request for friendship with #{@friend.name}"
+    end
+    redirect_to request.referrer
+  end
+
+  def destroy_friend
+    if @user.friends.include?(@friend)
+      Friendship.breakup(@user, @friend)
+      flash[:notice] = "Friendship with #{@friend.name} deleted!"
+    else
+      flash[:notice] = "You aren't friends with #{@friend.name}"
+    end
+    redirect_to request.referrer
+  end
 end

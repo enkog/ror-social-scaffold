@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :setup_friends, only: %i[show create_friendship accept decline]
+  before_action :setup_users, only: %i[show send_request accept_request decline_request]
 
   def index
     @users = User.all
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     redirect_to request.referrer, notice: 'Friend request sent'
   end
 
-  def update_friend
+  def accept_request
     if @user.requested_friends.include?(@friend)
       Friendship.accept(@user, @friend)
       flash[:notice] = "Friendship with #{@friend.name} accepted!"
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     redirect_to request.referrer
   end
 
-  def decline
+  def decline_request
     if @user.requested_friends.include?(@friend)
       Friendship.breakup(@user, @friend)
       flash[:notice] = "Friendship with #{@friend.name} declined"
@@ -35,30 +35,10 @@ class UsersController < ApplicationController
     redirect_to request.referrer
   end
 
-  def cancel
-    if @user.pending_friends.include?(@friend)
-      Friendship.breakup(@user, @friend)
-      flash[:notice] = 'Friendship request canceled.'
-    else
-      flash[:notice] = "No request for friendship with #{@friend.name}"
-    end
-    redirect_to request.referrer
-  end
-
-  def destroy_friend
-    if @user.friends.include?(@friend)
-      Friendship.breakup(@user, @friend)
-      flash[:notice] = "Friendship with #{@friend.name} deleted!"
-    else
-      flash[:notice] = "You aren't friends with #{@friend.name}"
-    end
-    redirect_to request.referrer
-  end
-
   private
 
-  def setup_friends
-    @user = User.find(session[:user_id])
+  def setup_users
+    @user = User.find(params[:id])
     @friend = User.find_by_name(params[:id])
   end
 end
