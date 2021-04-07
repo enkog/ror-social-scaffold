@@ -26,7 +26,6 @@ RSpec.describe User, type: :model do
     it { expect(described_class.reflect_on_association(:comments).macro).to eq(:has_many) }
     it { expect(described_class.reflect_on_association(:likes).macro).to eq(:has_many) }
     it { expect(described_class.reflect_on_association(:friendships).macro).to eq(:has_many) }
-    it { expect(described_class.reflect_on_association(:friends).macro).to eq(:has_many) }
     it { expect(described_class.reflect_on_association(:inverse_friendships).macro).to eq(:has_many) }
   end
 end
