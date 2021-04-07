@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       delete 'decline_request'
     end
   end
+
   resources :posts, only: [:index, :create] do
     resources :comments, only: [:create]
     resources :likes, only: [:create, :destroy]

@@ -1,44 +1,34 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :setup_users, only: %i[show send_request accept_request decline_request]
-
+ 
   def index
     @users = User.all
   end
 
   def show
+    @user = User.find(params[:id])
+    @pending_requests = @user.inverse_friendships.where(confirmed: false)
+    @friends = @user.friendships.where(confirmed: true)
     @posts = @user.posts.ordered_by_most_recent
   end
 
   def send_request
-    current_user.friendships.create(user_id: current_user.id, friend_id: @user.id, confirmed: false)
-    redirect_to request.referrer, notice: 'Friend request sent'
+    Friendship.create(user_id: current_user.id, friend_id: params[:id], confirmed: false)
+    redirect_to request.referrer, notice: 'Friend request sent successfully!'
   end
 
   def accept_request
-    if @user.requested_friends.include?(@friend)
-      Friendship.accept(@user, @friend)
-      flash[:notice] = "Friendship with #{@friend.name} accepted!"
-    else
-      flash[:notice] = "No friendship request from #{@friend.name}."
-    end
-    redirect_to request.referrer
+    @friend = Friendship.find(params[:id])
+    @friend.update(confirmed: true)
+    @friend2 = Friendship.create(user_id: current_user.id, friend_id: @friend.user_id, confirmed: true)
+    redirect_to request.referrer, notice: 'Friend request accepted'
   end
 
   def decline_request
-    if @user.requested_friends.include?(@friend)
-      Friendship.breakup(@user, @friend)
-      flash[:notice] = "Friendship with #{@friend.name} declined"
-    else
-      flash[:notice] = "No friendship request from #{@friend.name}."
-    end
-    redirect_to request.referrer
-  end
-
-  private
-
-  def setup_users
-    @user = User.find(params[:id])
-    @friend = User.find_by_name(params[:id])
+    @friend = Friendship.find(params[:id])
+    @friend2 = Friendship.where(user_id: @friend.friend_id, friend_id: @friend.user_id, confirmed: true).first
+    @friend.destroy
+    @friend2&.destroy
+    redirect_to request.referrer, notice: 'Friend request declined'
   end
 end
