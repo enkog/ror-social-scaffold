@@ -17,7 +17,9 @@ module ApplicationHelper
   end
 
   def friends(user)
-    unless Friendship.where(user_id: current_user.id, friend_id: user.id, confirmed: true).exists? && Friendship.where(user_id: user.id, friend_id: current_user.id, confirmed: true).exists?
+    unless Friendship.where(user_id: current_user.id, friend_id: user.id,
+                            confirmed: true).exists? && Friendship.where(user_id: user.id, friend_id: current_user.id,
+                                                                         confirmed: true).exists?
       return false
     end
 
@@ -25,7 +27,9 @@ module ApplicationHelper
   end
 
   def pending_req(user)
-    unless Friendship.where(user_id: current_user.id, friend_id: user.id, confirmed: false).exists? || Friendship.where(user_id: user.id, friend_id: current_user.id, confirmed: false).exists?
+    unless Friendship.where(user_id: current_user.id, friend_id: user.id,
+                            confirmed: false).exists? || Friendship.where(user_id: user.id,
+                                                                          friend_id: current_user.id, confirmed: false).exists?
       return false
     end
 
