@@ -12,4 +12,7 @@ class User < ApplicationRecord
 
   has_many :friendships, foreign_key: 'user_id'
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
+
+  has_many :confirmed_friendships, -> { where confirmed: true }, class_name: 'Friendship'
+  has_many :friends, through: :confirmed_friendships
 end
