@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-  include ApplicationHelper
   before_action :authenticate_user!
 
   def index
@@ -20,14 +19,8 @@ class PostsController < ApplicationController
 
   private
 
-  def friends_posts(user)
-    user if friends(User.find(user)) || current_user.id == user
-  end
-
   def timeline_posts
-    @timeline_posts = Post.all.ordered_by_most_recent.includes(:user).select do |post|
-      post.user_id == friends_posts(post.user_id)
-    end
+    @timeline_posts ||= Post.all.ordered_by_most_recent.includes(:user)
   end
 
   def post_params
