@@ -1,9 +1,42 @@
 <section class="user-section">
-  <h2><%= "Name: #{@user.name}" %></h2>
+   <h2><%= "Name: #{@user.name}" %></h2>  
+  <% if current_user != @user && friends(@user) == false && pending_req(@user) == false %>
+    <%= link_to 'Send friend request', send_request_user_path, class: 'profile-link' %>
+  <% elsif pending_req(@user) %>
+    <span class= 'profile-link'>Pending Request</span> 
+      <% if !@pending_request.nil? %>
+        <span class= 'profile-link'><%= accept_req(@pending_request) %> | <%= reject_req(@pending_request) %></span>
+      <% end %>
+  <% elsif friends(@user) %>
+    <span class= 'profile-link'>Friends!</span> <%= decline_req(@user) %>
+  <% end %>
+
+  <% if current_user == @user %>
+    <% if @pending_requests.any? %>
+      <h4>Pending requests</h4>
+      <ul>
+        <% @pending_requests.each do |request| %>
+          <li><%= request.user.name %> | <%= accept_req(request) %> | <%= reject_req(request) %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <% if @friends.any? %>
+      <h4>Friends</h4>
+      <ul>
+        <% @friends.each do |friend| %>
+          <li><%= link_to friend.friend.name, user_path(friend.friend.id), class: 'profile-link' %> | <%= decline_req(friend.friend) %>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>
+
+  <% if current_user == @user || friends(@user) %>
   <article class="timeline">
     <h3>Recent posts:</h3>
     <ul class="posts">
       <%= render @posts %>
     </ul>
   </article>
+  <% end %>
+  
 </section>
