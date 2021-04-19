@@ -31,7 +31,7 @@ The purpose of this project was to implement friendship feature in the project t
 
 ## Live Demo
 
-TBA
+https://mysterious-escarpment-85334.herokuapp.com/
 
 ## Getting Started
 
