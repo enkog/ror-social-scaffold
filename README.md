@@ -4,15 +4,15 @@ The purpose of this project was to implement friendship feature in the project t
 
 ## Project specifications
 
-*As a guest user:*
+_As a guest user:_
 
 - You will be able to create account/log in.
 - You can see only “Sign in” and “Sign out” page.
 
-*As a logged-in user:*
+_As a logged-in user:_
 
 - You will be able to see all users list.
-- You will be able to see selected user page with their user name and all    posts written by them (the most recent posts on the top).
+- You will be able to see selected user page with their user name and all posts written by them (the most recent posts on the top).
 - You will be able to send a friendship invitation.
 - You will see a button “Invite to friendship” next to the name of user who is not your friend yet - on both users’ list and single user page.
 - You will be able to see pending friendship invitations sent to you from other users.
@@ -31,7 +31,7 @@ The purpose of this project was to implement friendship feature in the project t
 
 ## Live Demo
 
-[Live Demo](https://desolate-beach-00602.herokuapp.com/)
+[Live Demo](https://mysterious-escarpment-85334.herokuapp.com/)
 
 ## Getting Started
 
@@ -47,7 +47,7 @@ To get a local copy up and running follow these simple example steps.
 
 Install gems with:
 
-``` 
+```
 bundle install
 ```
 
@@ -70,7 +70,7 @@ Open `http://localhost:3000/` in your browser.
 
 ### Run tests
 
-``` 
+```
     rpsec
 ```
 
@@ -78,9 +78,9 @@ Open `http://localhost:3000/` in your browser.
 
 👤 **Oguadinma Nkiruka Ngozika**
 
--   Github: [@enkog](https://github.com/enkog)
--   Linkedin: [@enkog](https://www.linkedin.com/in/enkog/)
--   Twitter: [@enkodes](https://twitter.com/enkodes)
+- Github: [@enkog](https://github.com/enkog)
+- Linkedin: [@enkog](https://www.linkedin.com/in/enkog/)
+- Twitter: [@enkodes](https://twitter.com/enkodes)
 
 ## 🤝 Contributing
 
@@ -92,6 +92,6 @@ Give a ⭐️ if you like this project!
 
 ## Acknowledgments
 
-- <a href="https://www.microverse.org/" target="_blank">Microverse</a> 
+- <a href="https://www.microverse.org/" target="_blank">Microverse</a>
 - <a href="https://www.theodinproject.com/" target="_blank">The Odin Project</a>
 - <a href="https://www.stackoverflow.com/" target="_blank">Stackoverflow</a>
