@@ -286,23 +286,10 @@ form {
   }
 
   .profile-link {
-    font-size: 20px;
+    font-size: 0.8em;
     margin: 0 0 8px 0;
-    color: $divider-color;
+    color: $primary-color-dark;
   }
-
-  .button {
-  background-color: $primary-color-dark;
-  border: none;
-  border-radius: 8px;
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
 }
 
 .user-section {

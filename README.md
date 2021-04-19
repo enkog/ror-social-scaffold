@@ -1,4 +1,4 @@
-# RoR Social Media Project
+# Scaffold for social media app with Ruby on Rails
 
 The purpose of this project was to implement friendship feature in the project to further consolidate my knowledge of ActiveRecord, associations and RSpec tests.
 
@@ -23,15 +23,16 @@ _As a logged-in user:_
 - You will be able to see “Timeline” page with posts (with number of likes and comments) written by you and all your friends (the most recent posts on the top).
 - Timeline page is the root page of the app.
 
+
 ## Built With
 
 - Ruby v2.7.0
 - Ruby on Rails v5.2.4
-- VS Code
 
 ## Live Demo
 
 [Live Demo](https://mysterious-escarpment-85334.herokuapp.com/)
+
 
 ## Getting Started
 
@@ -39,13 +40,13 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-- Ruby
-- Rails
-- Postgres
+Ruby: 2.6.3
+Rails: 5.2.3
+Postgres: >=9.5
 
 ### Setup
 
-Install gems with:
+Instal gems with:
 
 ```
 bundle install
@@ -57,6 +58,16 @@ Setup database with:
    rails db:create
    rails db:migrate
 ```
+
+### Github Actions
+
+To make sure the linters' checks using Github Actions work properly, you should follow the next steps:
+
+1. On your recently forked repo, enable the GitHub Actions in the Actions tab.
+2. Create the `feature/branch` and push.
+3. Start working on your milestone as usual.
+4. Open a PR from the `feature/branch` when your work is done.
+
 
 ### Usage
 
@@ -71,20 +82,24 @@ Open `http://localhost:3000/` in your browser.
 ### Run tests
 
 ```
-    rpsec
+    rpsec --format documentation
 ```
 
-## Author
+> Tests will be added by Microverse students. There are no tests for initial features in order to make sure that students write all tests from scratch.
 
-👤 **Oguadinma Nkiruka Ngozika**
+
+## Authors
 
 - Github: [@enkog](https://github.com/enkog)
 - Linkedin: [@enkog](https://www.linkedin.com/in/enkog/)
 - Twitter: [@enkodes](https://twitter.com/enkodes)
 
+
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!
+
+Feel free to check the [issues page](issues/).
 
 ## Show your support
 
@@ -95,3 +110,4 @@ Give a ⭐️ if you like this project!
 - <a href="https://www.microverse.org/" target="_blank">Microverse</a>
 - <a href="https://www.theodinproject.com/" target="_blank">The Odin Project</a>
 - <a href="https://www.stackoverflow.com/" target="_blank">Stackoverflow</a>
+
